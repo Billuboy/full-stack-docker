@@ -1,10 +1,11 @@
 services:
   postgres_db:
-    # build:
-    #   context: database
-    #   dockerfile: Dockerfile
+    build:
+      context: database
+      dockerfile: Dockerfile
     container_name: postgres_db
-    image: billuboy/k8s_postgres_db:1
+    image: k8s_postgres_db
+    # image: billuboy/k8s_postgres_db:1
     restart: unless-stopped
     env_file:
       - ./database/.env
@@ -15,7 +16,7 @@ services:
     ports:
       - $POSTGRES_LOCAL_PORT:5432
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
+      - postgres_volume:/var/lib/postgresql/pgdata
     networks:
       - back_end
 
